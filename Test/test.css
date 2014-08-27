@@ -23,13 +23,16 @@ li{
 	list-style:none;
 	display:block;
 }
-#placeholder{
-	position:relative;
-	down:10px;
-}
-#description
+
+#imagegallery
 {
-	position:relative;
-	left:50px;
-	right:100px;
+	list-style:none;
+}
+#imagegallery li
+{
+	display: inline;
+}
+#imagegallery li a img
+{
+	border: 0;
 }
