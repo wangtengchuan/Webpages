@@ -7,9 +7,9 @@ function webSocket()
 		var connection=new Websocket(url);
 		connection.onopen=function()
 		{
-
+			var sendMsg=document.querySelector("#sendBin");
 			alert("Connection is established");
-			connection.send("Hello Adam, what kind of service can you provide?");
+			connection.send(sendMsg);
 			console.log("Message is sending...");
 		};
 		conetion.onmessage=function(event)
