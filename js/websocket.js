@@ -4,7 +4,7 @@ function webSocket()
 	{
 		alert("Good! Websocket is supported by your browser!");
 		var url=document.getElementById("geturl").value;
-		var connection=new Websocket(url);
+		var connection=new Websocket('ws://10.164.2.50:1234');
 		connection.onopen=function()
 		{
 			var sendMsg=document.querySelector("#sendBin");
@@ -12,9 +12,9 @@ function webSocket()
 			connection.send(sendMsg);
 			console.log("Message is sending...");
 		};
-		conetion.onmessage=function(event)
+		conetion.onmessage=function(msg)
 		{
-			//var receivedMsg=
+			if(msg.data instanceof )
 		}
 		connection.onclose=function()
 		{
@@ -39,3 +39,12 @@ function addTenPercent() {
     bar.value += 5;
 };
 window.onload = addTenPercent();
+
+
+function string2arraybuffer(str) 
+{
+    var buf = new ArrayBuffer(str.length);
+    var bufView = new Uint8Array(buf);
+    for (var i = 0, strLen = str.length; i < strLen; i++)
+         bufView[i] = str.charCodeAt(i);
+    return buf;
