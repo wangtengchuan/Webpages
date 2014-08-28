@@ -19,7 +19,7 @@
         <canvas id="myCanvas"width="500",height="600" style="border:1px solid: #d3d3d3" onload="showRGB()"></canvas>
         <br/>
 
-        <button onClick="sendMessage("test:start ");">start</button>
+        <button onclick="sendMessage('/test:start ')">start</button>
 
         <script type="text/javascript">
             function string2arraybuffer(str) {
@@ -66,6 +66,7 @@
                     websocket.onmessage = function (evt) {
                         console.log( "Message received :", evt.data );
                         debug( evt.data );
+                        processArrayBuffer(evt.data);
                     };
                     websocket.onerror = function (err) {
                         debug('ERROR: ' + JSON.stringify(err));
@@ -109,6 +110,21 @@
                 } else {
                     debug("WebSocket is null");
                 }
+            }
+            
+            function processArrayBuffer(imgdata) {
+                console.log('imgdata: ');
+                for(var i = 0, dataLen = imgdata.length; i < dataLen; ++i) {
+                    console.log(imgdata[i]);
+                }
+
+                var c=document.getElementById("myCanvas");
+                var ctx=c.getContext("2d");
+                var imgdata = ctx.getImageData(0, 0, 500, 600);
+                for (var i = 0, imgdatalen = imgdata.data.length; i < imgdatalen; i++) {
+                    imgdata.data[i] = imgdata[i];
+                }
+                ctx.putImageData(imgdata, 0, 0);
             }
         </script>
     </body>
