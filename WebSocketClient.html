@@ -16,7 +16,7 @@
             <input type="text" id="inputText" onkeydown="if(event.keyCode==13)sendMessage();"/>
             <button onClick="sendMessage();">Send</button>
         </p>
-        <canvas id="myCanvas"width="500",height="600" style="border:1px solid: #d3d3d3" onload="showRGB()"></canvas>
+        <canvas id="myCanvas" width="500" height="600" style="border:1px solid"></canvas>
         <br/>
 
         <button onclick="sendMessage('/test:start ')">start</button>
@@ -43,7 +43,6 @@
                     //document.getElementById("inputText").value = "";
                     var buffer = string2arraybuffer(msg);
                     websocket.send( buffer );
-                    console.log( "string sent :", '"'+JSON.stringify(buffer)+'"' );
                 }
             }
 
@@ -57,6 +56,7 @@
                     if ( websocket && websocket.readyState == 1 )
                         websocket.close();
                     websocket = new WebSocket( wsUri );
+                    websocket.binaryType = "arraybuffer";
                     websocket.onopen = function (evt) {
                         debug("CONNECTED");
                     };
@@ -64,7 +64,10 @@
                         debug("DISCONNECTED");
                     };
                     websocket.onmessage = function (evt) {
-                        console.log( "Message received :", evt.data );
+                        console.log( "Message received :", JSON.stringify(evt) );
+                        if(evt.data instanceof ArrayBuffer) {
+                            console.log('binary');
+                        }
                         debug( evt.data );
                         processArrayBuffer(evt.data);
                     };
@@ -112,17 +115,14 @@
                 }
             }
             
-            function processArrayBuffer(imgdata) {
-                console.log('imgdata: ');
-                for(var i = 0, dataLen = imgdata.length; i < dataLen; ++i) {
-                    console.log(imgdata[i]);
-                }
+            function processArrayBuffer(buf) {
+                var u8data = new Uint8Array(buf);
 
                 var c=document.getElementById("myCanvas");
                 var ctx=c.getContext("2d");
                 var imgdata = ctx.getImageData(0, 0, 500, 600);
-                for (var i = 0, imgdatalen = imgdata.data.length; i < imgdatalen; i++) {
-                    imgdata.data[i] = imgdata[i];
+                for (var i = 0, imgdatalen = imgdata.data.length; i < imgdatalen; i += 1) {
+                    imgdata.data[i] = u8data[i+12];
                 }
                 ctx.putImageData(imgdata, 0, 0);
             }
