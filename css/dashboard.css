@@ -4,13 +4,43 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
-  background: url(./img/desktop.jpg);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+    background: url('../img/background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color:#fee;
+    font-family: Arial,Helvetica,Sans-Serif;
 }
 
+a:link, a:visited {
+  color:#eee;
+}
 
+/*.background-image{
+  position:fixed;
+  left:0;
+  right:0;
+  z-index:0;
+
+  display:block;
+  background-image:url('./img/desktop.jpg');
+  width:1200px;
+  height:800px;
+  -webkit-filter:blur(5px);
+  -moz-filter:blur(5px);
+  -o-filter:blur(5px);
+  -ms-filter:blur(5px);
+  filter:blur(5px);
+}*/
+/*.content {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;
+}*/
 /*
  * Global add-ons
  */
