@@ -146,3 +146,7 @@ a:link, a:visited {
     
     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=5, MakeShadow=false); /* IE6~IE9 */
 }
+#websocketbtn{
+  position:relative;
+  top:2px;
+}
